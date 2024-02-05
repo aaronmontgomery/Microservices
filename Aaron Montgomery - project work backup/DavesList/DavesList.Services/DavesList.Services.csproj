@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DavesList.Models\DavesList.Models.csproj" />
+    <ProjectReference Include="..\Identity.Services\Identity.Services.csproj" />
+  </ItemGroup>
+
+</Project>
