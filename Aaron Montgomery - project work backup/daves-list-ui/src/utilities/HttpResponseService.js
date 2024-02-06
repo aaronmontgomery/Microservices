@@ -1,20 +1,35 @@
 export default class HttpResponseService {
+    
+    handleError(error) {
 
-    ProcessResponse(baseResponse) {
+        if (error.code === "ERR_NETWORK") {
+            return;
+        }
+
+        else {
+            window.location.assign('/');
+        }
+    }
+    
+    handleResponse(baseResponse) {
         
         switch (baseResponse.serverAction) {
-            
+
             case 0: // IsLoggedIn
-                return baseResponse.token;
+
+                break;
             
             case 1: // Login
-                return baseResponse.token;
+
+                break;
             
             case 2: // Logout
-                return undefined;
-            
+                window.location.assign('/'); // home
+                break;
+
             default:
-                throw new Error("HttpResponseService ProcessResponse serverAction unknown");
+                break;
+                //throw new Error("HttpResponseService ProcessResponse serverAction unknown");
         }
     }
 }

@@ -4,8 +4,6 @@ namespace Identity.Services
 {
     public interface IIdentityAccountService
     {
-        //Task<bool> CreateSecurityTokenAsync();
-
         string GenerateJwtToken(IEnumerable<Claim> claims);
         
         Task<bool> IsUserExistsAsync(string userName, string password);

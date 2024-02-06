@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Identity.Entities;
 using Identity.Services;
+using DavesList.Entities;
+using DavesList.Repositories;
 using DavesList.Services;
 
 namespace DavesList.Api
@@ -24,7 +26,12 @@ namespace DavesList.Api
             
             builder.Services.AddDbContext<IdentityContext>(x =>
             {
-                x.UseSqlServer("Data Source=localhost;Initial Catalog=Identity;User ID=sa;Password=localadmin");
+                x.UseSqlServer("Data Source=localhost;Initial Catalog=Identity;User ID=sa;Password=localadmin;TrustServerCertificate=True");
+            });
+            
+            builder.Services.AddDbContext<DavesListContext>(x =>
+            {
+                x.UseSqlServer("Data Source=localhost;Initial Catalog=DavesList;User ID=sa;Password=localadmin;TrustServerCertificate=True");
             });
 
             builder.Services.AddIdentity<ApplicationUser, ApplicationRole>()
@@ -51,11 +58,15 @@ namespace DavesList.Api
             });
             
             builder.Services.AddAuthorization();
+
+            builder.Services.AddScoped<IRepository, Repository>();
             
             builder.Services.AddScoped<IIdentityAccountService, IdentityAccountService>();
             
             builder.Services.AddScoped<IAccountService, AccountService>();
             
+            builder.Services.AddScoped<IPostService, PostService>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

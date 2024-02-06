@@ -17,26 +17,6 @@ namespace Identity.Services
             _userManager = userManager;
         }
 
-        //public async Task<bool> CreateSecurityTokenAsync()
-        //{
-        //    bool isSuccess;
-        //    ApplicationUser applicationUser;
-
-        //    try
-        //    {
-        //        applicationUser = await _userManager.FindByNameAsync("default");
-        //        await _userManager.CreateSecurityTokenAsync(applicationUser);
-        //        isSuccess = true;
-        //    }
-
-        //    catch
-        //    {
-        //        isSuccess = false;
-        //    }
-
-        //    return isSuccess;
-        //}
-
         public string GenerateJwtToken(IEnumerable<Claim> claims)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("hb23h872be_$da11fvh8b1@^&$%_dvdjf"));

@@ -36,72 +36,21 @@ namespace DavesList.Api.Controllers
         [Route("/addtestuser")]
         public async Task<IActionResult> AddTestUserAsync()
         {
-            // set up test user
-            ApplicationUser defaultUser = new ApplicationUser()
-            {
-                UserName = "default",
-                Email = "default@email.com",
-                PhoneNumber = "000-000-0000",
-            };
-
-            // set up test Administrators role
-            ApplicationRole administratorsRole = new ApplicationRole()
-            {
-                Name = "Administrators"
-            };
-
-            ApplicationUser user = await _userManager.FindByNameAsync(defaultUser.UserName);
-            ApplicationRole role = await _roleManager.FindByNameAsync(administratorsRole.Name);
-
-            if (user == null && role == null)
-            {
-                await _userManager.CreateAsync(defaultUser, "Testpassword#1");
-                await _roleManager.CreateAsync(administratorsRole);
-                await _userManager.AddToRolesAsync(defaultUser, new string[] { administratorsRole.Name });
-            }
-
-            return Ok();
-        }
-
-        //[HttpPost]
-        //[Route("/register")]
-        //public async Task<IActionResult> RegisterAsync([FromBody] RegisterRequest registerRequest)
-        //{
-        //    IActionResult actionResult;
-
-        //    try
-        //    {
-        //        actionResult = Ok(await _identityAccountService.CreateSecurityTokenAsync());
-        //    }
-
-        //    catch
-        //    {
-        //        actionResult = BadRequest();
-        //    }
-
-        //    return actionResult;
-        //}
-
-        [Authorize]
-        [HttpGet]
-        [Route("/test")]
-        public IActionResult TestAsync()
-        {
             IActionResult actionResult;
 
             try
             {
-                actionResult = Ok();
+                actionResult = Ok(await _accountService.AddTestAccountAsync(_userManager, _roleManager));
             }
-            
+
             catch
             {
                 actionResult = BadRequest();
             }
-
+            
             return actionResult;
         }
-
+        
         [Authorize]
         [HttpGet]
         [Route("/isloggedin")]

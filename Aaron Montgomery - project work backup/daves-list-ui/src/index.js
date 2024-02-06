@@ -7,7 +7,7 @@ import axios from 'axios';
 import HttpService from './utilities/HttpService';
 import HttpResponseService from './utilities/HttpResponseService';
 import ConfigurationService from './utilities/ConfigurationService';
-import { getIsLoggedInRequest, postLoginRequest, postLogoutRequest } from './utilities/requests';
+import { getAddTestUserRequest, getIsLoggedInRequest, getPostsRequest, postAddPostRequest, postLoginRequest, postLogoutRequest } from './utilities/requests';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,7 +15,10 @@ root.render(
     <App
       httpService={new HttpService(axios, new HttpResponseService())}
       configurationService={new ConfigurationService()}
+      getAddTestUserRequest={getAddTestUserRequest}
       getIsLoggedInRequest={getIsLoggedInRequest}
+      getPostsRequest={getPostsRequest}
+      postAddPostRequest={postAddPostRequest}
       postLoginRequest={postLoginRequest}
       postLogoutRequest={postLogoutRequest}
     />

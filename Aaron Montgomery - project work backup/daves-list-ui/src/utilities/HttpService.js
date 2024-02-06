@@ -2,15 +2,18 @@ export default class HttpService {
     
     constructor(axios, httpResponseService) {
         
-        this.authorizationToken = undefined;
-        
         this.axios = axios;
         
-        axios.interceptors.request.use(
+        this.authorizationToken = undefined;
+
+        this.request = null;
+
+        this.requestInterceptor = axios.interceptors.request.use(
             (config) => {
                 config.headers['Authorization'] = 'Bearer ' + this.authorizationToken;
                 config.headers['Content-Type'] = 'application/json';
                 console.log('Request Interceptor:', config);
+                this.request = config;
                 return config;
             },
             (error) => {
@@ -19,14 +22,15 @@ export default class HttpService {
             }
         );
         
-        axios.interceptors.response.use(
+        this.responseInterceptor = axios.interceptors.response.use(
             (response) => {
-                response.data['token'] = this.authorizationToken != null ? this.authorizationToken : response.data['token']; // 
-                this.authorizationToken = httpResponseService.ProcessResponse(response.data);
+                this.authorizationToken = this.authorizationToken != null ? this.authorizationToken : response.data['token'];
+                httpResponseService.handleResponse(response.data);
                 console.log('Response Interceptor:', response);
                 return response;
             },
             (error) => {
+                httpResponseService.handleError(error);
                 console.error('Response Error Interceptor:', error);
                 return Promise.reject(error);
             }
