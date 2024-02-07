@@ -5,7 +5,7 @@ function Logout(props) {
     const handleSubmit = (event) => {
         event.preventDefault();
         props.postLogoutRequest(props.httpService.axios, props.configurationService.appConfig)
-            .then(x => props.isLoggedInToggle());
+            .then(() => props.setIsLoggedIn({ value: true }));
     }
 
     return (

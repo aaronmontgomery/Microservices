@@ -8,7 +8,7 @@ function Login(props) {
     const handleSubmit = (event) => {
         event.preventDefault();
         props.postLoginRequest(props.httpService.axios, props.configurationService.appConfig, username, password)
-            .then(x => props.isLoggedInToggle());
+            .then(() => props.setIsLoggedIn({ value: true }));
     }
 
     return (
