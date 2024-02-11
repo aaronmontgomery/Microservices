@@ -18,6 +18,6 @@ namespace DavesList.Services
         }
 
         public IQueryable GetPosts(int count) =>
-            _repository.PostItems.Take(count);
+            _repository.PostItems.TakeLast(count);
     }
 }

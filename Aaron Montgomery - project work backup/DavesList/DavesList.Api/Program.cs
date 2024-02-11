@@ -82,7 +82,7 @@ namespace DavesList.Api
 
             app.UseAuthorization();
             
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            app.UseCors(x => x.WithOrigins("http://localhost:3000").AllowAnyHeader().WithMethods("GET", "POST"));
 
             app.MapControllers();
 
