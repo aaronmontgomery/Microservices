@@ -17,8 +17,8 @@ namespace DavesList.Services
             _repository.AddPost(post, title);
             return _repository.Save();
         }
-
-        public IEnumerable<Entities.PostItem> GetPosts(int count) =>
+        
+        public IQueryable<Entities.PostItem> GetPosts(int count) =>
             _repository.PostItems.OrderByDescending(x => x.DateCreated).Take(count).AsNoTracking();
     }
 }
