@@ -4,6 +4,6 @@
     {
         int AddPost(string post, string title);
 
-        IQueryable GetLatestPosts(int count);
+        IEnumerable<Entities.PostItem> GetPosts(int count);
     }
 }

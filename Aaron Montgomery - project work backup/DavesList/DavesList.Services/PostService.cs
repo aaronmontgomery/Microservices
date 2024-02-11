@@ -1,4 +1,5 @@
-﻿using DavesList.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using DavesList.Repositories;
 
 namespace DavesList.Services
 {
@@ -16,8 +17,8 @@ namespace DavesList.Services
             _repository.AddPost(post, title);
             return _repository.Save();
         }
-        
-        public IQueryable GetLatestPosts(int count) =>
-            _repository.PostItems.OrderByDescending(x => x.DateCreated).Take(count);
+
+        public IEnumerable<Entities.PostItem> GetPosts(int count) =>
+            _repository.PostItems.OrderByDescending(x => x.DateCreated).Take(count).AsNoTracking();
     }
 }
