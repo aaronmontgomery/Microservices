@@ -10,14 +10,14 @@ namespace DavesList.Services
         {
             _repository = repository;
         }
-        
+
         public int AddPost(string post, string title)
         {
             _repository.AddPost(post, title);
             return _repository.Save();
         }
-
-        public IQueryable GetPosts(int count) =>
-            _repository.PostItems.TakeLast(count);
+        
+        public IQueryable GetLatestPosts(int count) =>
+            _repository.PostItems.OrderByDescending(x => x.DateCreated).Take(count);
     }
 }
